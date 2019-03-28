@@ -7,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
 export class DirectivaComponent  {
 
   listaCurso: string[] = ['Typescript', 'JavaScript', 'Java SE', 'C#', 'PHP'];
-  
+  habilitar = true;
+
   constructor() { }
+
+  setHabilitar(): void {
+   this. habilitar = (this.habilitar === true) ? false : true;
+  }
 
 }
