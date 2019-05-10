@@ -26,7 +26,7 @@ export class FormComponent implements OnInit {
     });
   }
 
-  public create(): void {
+   create(): void {
     this.clienteService.create(this.cliente).subscribe(
       cliente => {
         this.router.navigate(['/clientes']);
@@ -35,5 +35,16 @@ export class FormComponent implements OnInit {
     );
     console.log(this.cliente);
   }
+
+  update(): void {
+    this.clienteService.update(this.cliente).subscribe(
+      (cliente) => {
+        this.router.navigate(['/clientes']);
+        swal('Cliente Actualizado', `Cliente ${cliente.nombre} actualiado`, 'success');
+      }
+    );
+  }
+
+
 
 }
