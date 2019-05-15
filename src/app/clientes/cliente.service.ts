@@ -24,7 +24,13 @@ export class ClienteService {
    }
 
    create(cliente: Cliente): Observable<Cliente> {
-     return this.http.post<Cliente>(this.urlEndPoint, cliente, {headers: this.httpHeaders});
+     return this.http.post<Cliente>(this.urlEndPoint, cliente, {headers: this.httpHeaders}).pipe(
+       catchError(e => {
+        console.log(e.error.mensaje);
+        swal(e.error.mensaje, e.error.error, 'error');
+        return throwError(e);
+       })
+     );
    }
 
    getCliente(id: number): Observable<Cliente> {
@@ -39,11 +45,23 @@ export class ClienteService {
    }
 
    update(cliente: Cliente): Observable<Cliente> {
-     return this.http.put<Cliente>(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers: this.httpHeaders});
+     return this.http.put<Cliente>(`${this.urlEndPoint}/${cliente.id}`, cliente, {headers: this.httpHeaders}).pipe(
+      catchError(e => {
+       console.log(e.error.mensaje);
+       swal(e.error.mensaje, e.error.error, 'error');
+       return throwError(e);
+      })
+    );
    }
 
    delete(id: number): Observable<Cliente> {
-     return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders});
+     return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
+      catchError(e => {
+       console.log(e.error.mensaje);
+       swal(e.error.mensaje, e.error.error, 'error');
+       return throwError(e);
+      })
+    );
    }
 
 }
