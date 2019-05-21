@@ -12,6 +12,7 @@ export class FormComponent implements OnInit {
 
    public cliente: Cliente = new Cliente();
    public titulo = 'Crear cliente';
+   private errores: string[] = [];
 
   constructor(private clienteService: ClienteService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
@@ -31,6 +32,11 @@ export class FormComponent implements OnInit {
       cliente => {
         this.router.navigate(['/clientes']);
         swal('Nuevo Cliente', `Cliente ${cliente.nombre} creado con exito`, 'success');
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error('Codigo de error desde el backend: ' + err.status);
+        console.error( err.error.errors);
       }
     );
     console.log(this.cliente);
@@ -41,6 +47,11 @@ export class FormComponent implements OnInit {
       (cliente) => {
         this.router.navigate(['/clientes']);
         swal('Cliente Actualizado', `Cliente ${cliente.nombre} actualiado`, 'success');
+      },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error('Codigo de error desde el backend: ' + err.status);
+        console.error( err.error.errors);
       }
     );
   }
