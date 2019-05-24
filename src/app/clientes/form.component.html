@@ -33,7 +33,7 @@
         <div class="form-group row">
           <label for="email" class="col-form-label col-sm-2">Email</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control"[(ngModel)]="cliente.email" name="email" #email="ngModel"/> <!-- required email -->
+            <input type="text" class="form-control" [(ngModel)]="cliente.email" name="email" #email="ngModel"/> <!-- required email -->
             <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)" >
               <div *ngIf="email?.errors.required" >
                 Email es requerido
