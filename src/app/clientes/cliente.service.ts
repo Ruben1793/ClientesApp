@@ -4,7 +4,7 @@ import { CLIENTES} from './clientes.json';
 import { Cliente } from './cliente';
 import { Observable, of, throwError } from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, tap } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
@@ -20,6 +20,13 @@ export class ClienteService {
   getClientes(): Observable<Cliente[]> {
     // return of(CLIENTES);
     return this.http.get(this.urlEndPoint).pipe(
+      tap(response => {
+        let clientes = response as Cliente[];
+        clientes.forEach(cliente => {
+          console.log('Cliente Service: tap1');
+          console.log(cliente.nombre);
+        });
+      }),
       map(response => {
         let clientes = response as Cliente[];
         return clientes.map(cliente => {
@@ -28,6 +35,12 @@ export class ClienteService {
           // cliente.createAt = formatDate(cliente.createAt, 'dd-MM-yyyy', 'en-US');
          // cliente.createAt = datePipe.transform(cliente.createAt, 'EEEE dd, MMMM yyyy');
           return cliente;
+        });
+      }),
+      tap(response => {
+        response.forEach( cliente => {
+          console.log('Cliente Service: tap1');
+          console.log(cliente.nombre);
         });
       })
     );
